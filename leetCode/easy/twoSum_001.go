@@ -1,7 +1,5 @@
 package easy
 
-import "fmt"
-
 //给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。
 //你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。
 //示例:
@@ -12,16 +10,30 @@ import "fmt"
 //所以返回 [0, 1]
 
 
+
+// 方法一：暴力法，O(n) = n^2
 func TwoSum(nums []int, target int)  []int{
-	fmt.Println("hhhhhhssshh")
-	maps := make(map[int]int)
-	for index, value := range nums {
-		member := target - value
-		if _, ok := maps[member]; ok {
-			return []int{member, index}
-		} else {
-			maps[value] = index
+	for i, v := range nums{
+		for j := i + 1; j < len(nums); j++ {
+			if v + nums[j] == target {
+				return []int{i,j}
+			}
 		}
 	}
-	return []int{}
+
+	return nil
+}
+
+// 方法二: hash
+func TwoSum2(nums []int, target int) []int  {
+	m := make(map[int]int, len(nums))
+	for i, v := range nums{
+		sub := target - v
+		if j,ok := m[sub];ok {
+			return []int{j,i}
+		}else {
+			m[v] = i
+		}
+	}
+	return nil
 }
